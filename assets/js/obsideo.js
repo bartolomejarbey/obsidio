@@ -6,7 +6,10 @@
   "use strict";
   var doc = document, root = doc.documentElement;
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var desktop = matchMedia("(min-width: 1081px)").matches && matchMedia("(hover: hover)").matches;
+  // režim editoru: stránka se načte staticky, vše viditelné, bez Lenis/GSAP/kurzoru
+  var EDIT = location.search.indexOf("edit=1") > -1 || window.name === "obsidioEdit";
+  if (EDIT) { reduce = true; root.classList.add("is-editing"); }
+  var desktop = matchMedia("(min-width: 1081px)").matches && matchMedia("(hover: hover)").matches && !EDIT;
   var hasGSAP = !!(window.gsap), hasST = !!(window.ScrollTrigger), hasLenis = !!(window.Lenis);
   var gsap = window.gsap;
 
@@ -113,6 +116,18 @@
     // velký footer wordmark drift
     if (hasST) gsap.to(".foot-word", { xPercent: -6, ease: "none", scrollTrigger: { trigger: ".site-footer", start: "top bottom", end: "bottom bottom", scrub: 1 } });
 
+    // vstup nav (jemné sjetí)
+    gsap.from(".nav-pill", { y: -18, opacity: 0, duration: 0.9, ease: "expo.out", delay: 0.1 });
+
+    // image clip-reveal (dlaždice + horizontální panely)
+    if (hasST) {
+      gsap.utils.toArray(".tile-media img, .hpanel-media img").forEach(function (img) {
+        gsap.fromTo(img, { clipPath: "inset(0 100% 0 0)", scale: 1.12 },
+          { clipPath: "inset(0 0% 0 0)", scale: 1, duration: 1.1, ease: "expo.out",
+            scrollTrigger: { trigger: img, start: "top 86%", once: true } });
+      });
+    }
+
     if (hasST) ST.refresh();
   }
 
@@ -155,6 +170,16 @@
     };
     addEventListener("scroll", update, { passive: true }); update();
   }
+
+  /* ---------- Scroll progress bar (funguje i bez GSAP) ---------- */
+  (function () {
+    var pb = doc.createElement("div"); pb.className = "scroll-prog"; doc.body.appendChild(pb);
+    var upd = function () {
+      var h = doc.documentElement.scrollHeight - innerHeight;
+      pb.style.transform = "scaleX(" + (h > 0 ? (window.scrollY || 0) / h : 0) + ")";
+    };
+    addEventListener("scroll", upd, { passive: true }); addEventListener("resize", upd); upd();
+  })();
 
   /* ---------- Mobile nav ---------- */
   var tgl = doc.querySelector(".nav-toggle"), mnav = doc.querySelector(".mobile-nav");

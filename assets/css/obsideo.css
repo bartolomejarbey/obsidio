@@ -543,6 +543,37 @@ body.cur-hover .cur-dot { opacity: 0; }
 @media (hover:none), (max-width:1080px){ .cur-dot, .cur-ring { display: none !important; } }
 
 /* ============================================================
+   WOW LAYER — animace a mikrointerakce (globální)
+   ============================================================ */
+.scroll-prog { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform: scaleX(0); transform-origin: left; background: linear-gradient(90deg, var(--volt), var(--volt-bright)); z-index: 200; pointer-events: none; }
+/* živé aurory pod nadpisy */
+@keyframes auroraA { 0%,100%{ transform: translateX(-50%) scale(1); opacity:.85; } 50%{ transform: translateX(-46%) scale(1.14); opacity:1; } }
+.hero-glow { animation: auroraA 14s ease-in-out infinite; will-change: transform; }
+@keyframes auroraB { 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(-7%,5%) scale(1.16); } }
+.subhero-glow { animation: auroraB 17s ease-in-out infinite; will-change: transform; }
+/* karta: electric lift + glow */
+a.card:hover, .card.hov:hover { border-color: var(--volt) !important; box-shadow: 0 26px 64px -26px rgba(71,54,255,0.5); }
+.panel--bone a.card:hover, .panel--bone .card.hov:hover { box-shadow: 0 26px 64px -26px rgba(71,54,255,0.32); }
+/* tile: glow pod obrázkem na hover */
+.tile:hover .tile-media, .hpanel:hover .hpanel-media { box-shadow: 0 30px 70px -28px rgba(71,54,255,0.55); }
+/* button shine sweep */
+.btn, .pen-btn, .nav-cta { position: relative; overflow: hidden; }
+.btn::after, .pen-btn::after, .nav-cta::after { content:""; position:absolute; top:0; bottom:0; left:-135%; width:55%; background:linear-gradient(110deg, transparent, rgba(255,255,255,0.35), transparent); transform: skewX(-18deg); transition: left .6s var(--ease); pointer-events:none; }
+.btn:hover::after, .pen-btn:hover::after, .nav-cta:hover::after { left: 155%; }
+.btn-bone:hover::after, .btn-outline:hover::after, .nav-cta:hover::after { background: linear-gradient(110deg, transparent, rgba(71,54,255,0.22), transparent); }
+/* big-row: posun obsahu při hoveru pro hloubku */
+.big-row .br-name { transition: transform .5s var(--ease); }
+.big-row:hover .br-name { transform: translateX(12px); }
+/* eyebrow linka roste */
+.eyebrow::before { transition: width .5s var(--ease); }
+.is-revealed .eyebrow::before { width: 30px; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow, .subhero-glow { animation: none; }
+  .btn::after, .pen-btn::after, .nav-cta::after { display: none; }
+  .big-row:hover .br-name { transform: none; }
+}
+
+/* ============================================================
    MOTION BASE (progressive)
    ============================================================ */
 .js [data-reveal] { opacity: 0; }

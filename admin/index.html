@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obsidio — vizuální editor</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/editor.css">
+</head>
+<body>
+  <div class="app">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="logo"><img src="/assets/img/logo-light.png" alt="Obsidio"> <span class="tag">Editor</span></div>
+      <select id="pageSelect" title="Vyber stránku"></select>
+      <span style="font-size:.78rem;color:var(--e-mut)" id="pageName"></span>
+      <div class="spacer"></div>
+      <button class="tb-btn" id="btnNav" title="Upravit menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg> Menu</button>
+      <button class="tb-btn" id="btnNew"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Nová stránka</button>
+      <button class="tb-btn" id="btnPreview" title="Otevřít naživo">Náhled</button>
+      <button class="tb-btn" id="btnHelp" title="Jak publikovat">?</button>
+      <button class="tb-btn primary" id="btnSave"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Stáhnout HTML</button>
+    </div>
+
+    <!-- SIDEBAR / PALETA -->
+    <div class="sidebar">
+      <div class="hint">Přetáhněte blok do stránky, nebo na něj klikněte. Klikněte na text a pište. Klikněte na obrázek pro výměnu.</div>
+      <div id="palette"></div>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="canvas">
+      <div class="bar"><span class="dot"></span> Živý náhled — klikejte a upravujte přímo ve stránce</div>
+      <div class="frame-wrap"><iframe id="frame" name="obsidioEdit" title="Editovaná stránka"></iframe></div>
+    </div>
+  </div>
+
+  <!-- DRAWER (vlastnosti) -->
+  <aside class="drawer" id="drawer"></aside>
+
+  <!-- MODAL: nová stránka -->
+  <div class="modal" id="m-new"><div class="modal"><div class="box">
+    <h3>Nová stránka</h3>
+    <div class="sub">Vyberte šablonu a pojmenujte stránku. Pak ji upravte jak chcete.</div>
+    <div class="tpl-opts">
+      <div class="tpl-opt sel" data-tpl="blank"><b>Prázdná</b><span>Nadpis + výzva k akci</span></div>
+      <div class="tpl-opt" data-tpl="service"><b>Služba</b><span>Hero, karty, ceník, FAQ, CTA</span></div>
+      <div class="tpl-opt" data-tpl="landing"><b>Landing page</b><span>Hero, statistiky, služby, reference</span></div>
+    </div>
+    <div class="field" style="margin-top:16px"><label>Název stránky</label><input id="np-name" placeholder="např. Tvorba e-shopů"></div>
+    <div class="field"><label>Adresa (slug) — nepovinné</label><input id="np-slug" placeholder="tvorba-eshopu"></div>
+    <div class="actions"><button class="tb-btn primary" id="npCreate">Vytvořit</button><button class="tb-btn" data-close="m-new">Zrušit</button></div>
+  </div></div></div>
+
+  <!-- MODAL: menu -->
+  <div class="modal" id="m-nav"><div class="modal"><div class="box">
+    <h3>Úprava menu</h3>
+    <div class="sub">Přejmenujte položky, změňte odkazy nebo je smažte. (Změny se uloží do této stránky — pro celý web stáhněte všechny stránky.)</div>
+    <div class="navlist"></div>
+    <div class="actions"><button class="tb-btn primary" id="navApply">Uložit menu</button><button class="tb-btn" data-close="m-nav">Zrušit</button></div>
+  </div></div></div>
+
+  <!-- MODAL: help -->
+  <div class="modal" id="m-help"><div class="modal"><div class="box">
+    <h3>Jak to publikovat</h3>
+    <div class="sub">Žádný black box — pracujete s reálnými soubory webu.</div>
+    <div class="prose-help">
+      <p><b>1.</b> Upravte stránku (texty, obrázky, bloky, menu). Změny se průběžně ukládají do prohlížeče jako koncept.</p>
+      <p><b>2.</b> Klikněte na <b>Stáhnout HTML</b> — stáhne se soubor <code>index.html</code> dané stránky.</p>
+      <p><b>3.</b> Nahrajte ho na hosting do správné složky (např. <code>/sluzby/social-bot/index.html</code>), nebo commitněte do GitHub repozitáře — web se sám aktualizuje.</p>
+      <p><b>Nová stránka:</b> po stažení ji nahrajte do složky <code>/vas-slug/index.html</code>. Pokud jste ji přidali do menu, stáhněte i ostatní stránky, aby měly nové menu.</p>
+      <p style="margin-top:14px;color:var(--e-volt2)"><b>Tip:</b> Pro plně automatické publikování (jeden klik) stačí napojit web na Netlify/Vercel + jednoduchý ukládací endpoint — řekněte si o doplnění.</p>
+    </div>
+    <div class="actions"><button class="tb-btn primary" data-close="m-help">Rozumím</button></div>
+  </div></div></div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/admin/editor.js"></script>
+</body>
+</html>
