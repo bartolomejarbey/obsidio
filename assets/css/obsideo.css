@@ -81,6 +81,11 @@ h2, .h-xl { font-size: clamp(2.3rem, 7.2vw, 6.4rem); font-weight: 800; letter-sp
 .h-lg { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.9rem, 4.4vw, 3.6rem); letter-spacing: -0.035em; line-height: 1.0; }
 h3, .h-md { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2.2rem); letter-spacing: -0.03em; line-height: 0.96; }
 .script { font-family: var(--font-script); font-weight: 700; line-height: 0.78; letter-spacing: 0; color: var(--volt); }
+/* kontrast scriptu/akcentního písma per-panel — indigo se na tmavém ztrácí */
+.panel--ink .script, .panel--ink .scr { color: var(--volt-bright); }
+.panel--bone .script, .panel--bone .scr { color: var(--volt); }
+.panel--volt .script { color: #fff; }
+.panel--volt .scr { color: var(--ink); }  /* overlap-script přes bílé giant slovo → tmavý, ne bílý */
 p { max-width: 58ch; }
 .lead { font-size: clamp(1.15rem, 1rem + 0.9vw, 1.7rem); line-height: 1.4; letter-spacing: -0.015em; max-width: 26ch; }
 .body-lg { font-size: clamp(1.05rem,1rem+0.4vw,1.3rem); line-height: 1.5; }
@@ -220,9 +225,12 @@ body.menu-open { overflow: hidden; }
    HERO (kinetic)
    ============================================================ */
 .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; padding-block: 14vh 8vh; }
-.hero-ribbon { position: absolute; inset: -8% -5%; z-index: 0; pointer-events: none; display: grid; place-items: center; }
-.hero-ribbon svg { width: 86%; height: auto; overflow: visible; filter: drop-shadow(0 30px 80px rgba(71,54,255,0.35)); }
-.hero-ribbon path { fill: none; stroke: var(--volt); stroke-width: 46; stroke-linecap: round; }
+.hero-ribbon { position: absolute; inset: -8% -5%; z-index: 0; pointer-events: none; display: grid; place-items: center; opacity: 0.6; }
+.hero-ribbon svg { width: 86%; height: auto; overflow: visible; filter: drop-shadow(0 30px 80px rgba(71,54,255,0.18)); }
+.hero-ribbon path { fill: none; stroke: var(--volt); stroke-width: 40; stroke-linecap: round; }
+/* script v hero musí být čitelný i přes ribbon → krémový, ne indigo */
+.hero .script { color: var(--cream); }
+.hero h1 .em { color: var(--volt-bright); }
 .hero-glow { position: absolute; width: 60vw; height: 60vw; border-radius: 50%; background: radial-gradient(circle, rgba(71,54,255,0.5) 0%, rgba(71,54,255,0) 64%); filter: blur(40px); top: 18%; left: 50%; transform: translateX(-50%); z-index: 0; pointer-events: none; }
 .hero .container { position: relative; z-index: 2; }
 .hero h1 { color: var(--cream); text-align: center; mix-blend-mode: normal; }
