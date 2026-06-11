@@ -241,14 +241,21 @@
     addEventListener("keydown", function (e) { if (e.key === "Escape" && modal && !modal.hidden) closeModal(); });
   })();
 
-  /* ---------- Forms (demo) ---------- */
+  /* ---------- Forms → Formspree (AJAX) ---------- */
   doc.querySelectorAll("form[data-form]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (f.querySelector('input[name="website"]') && f.querySelector('input[name="website"]').value) return;
-      var msg = doc.createElement("div"); msg.className = "form-success"; msg.setAttribute("role", "status");
-      msg.textContent = "Děkujeme! Ozveme se vám do 24 hodin. (Demo formulář — propojte na e-mail nebo CRM.)";
-      f.style.display = "none"; f.parentElement.appendChild(msg);
+      var hp = f.querySelector('input[name="website"]');
+      if (hp && hp.value) return; // honeypot
+      var ok = function () { var m = doc.createElement("div"); m.className = "form-success"; m.setAttribute("role", "status"); m.textContent = "Děkujeme! Ozveme se vám do 24 hodin."; f.style.display = "none"; f.parentElement.appendChild(m); };
+      var fail = function () { var w = f.querySelector(".form-note") || f; var m = doc.createElement("div"); m.className = "form-note"; m.style.color = "#E5484D"; m.style.marginTop = "10px"; m.textContent = "Odeslání se nezdařilo. Napište nám prosím na ahoj@obsidio.cz."; w.appendChild(m); };
+      var action = f.getAttribute("action");
+      var btn = f.querySelector('[type="submit"]'); if (btn) { btn.disabled = true; btn.style.opacity = ".6"; }
+      if (action) {
+        fetch(action, { method: "POST", body: new FormData(f), headers: { Accept: "application/json" } })
+          .then(function (r) { if (r.ok) ok(); else { if (btn) { btn.disabled = false; btn.style.opacity = "1"; } fail(); } })
+          .catch(function () { if (btn) { btn.disabled = false; btn.style.opacity = "1"; } fail(); });
+      } else { ok(); }
     });
   });
 

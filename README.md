@@ -58,7 +58,7 @@ Statický web. **Netlify / Vercel / Cloudflare Pages:** přetáhni složku `obsi
 6. **Právní stránky** (VOP, GDPR, Cookies) jsou **vzory** — nech projít právníkem, doplň datum účinnosti.
 7. **DPH** — doplň v ceníku/FAQ, zda jsi plátce.
 8. **Blog** — články odkazují na `#` (placeholder). Dopiš, nebo blog skryj z menu.
-9. **Formuláře** jsou demo. Napoj na e-mail/CRM (Formspree / Web3Forms / Netlify Forms — přidej `action` na `<form data-form>`).
+9. **Formuláře** jsou napojené na **Formspree** (`https://formspree.io/f/xlgkwzkd`) — odesílají AJAXem, ukážou inline poděkování. V Formspree dashboardu si ověř/změň cílový e-mail. (Chceš jiný endpoint? Přepiš `action` na obou `<form>` v `kontakt/` a `audit-zdarma/`.)
 
 ## 🖼️ Grafika
 Web běží i bez fotek (vlastní SVG logo, kinetický ribbon, typografie). Veškeré grafické zadání jako hotové prompty je v **`GRAFICKY-BRIEF.md`** (logo, favicon, OG, reference, vizitka, polep auta, social šablony).
