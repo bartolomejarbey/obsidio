@@ -6,10 +6,7 @@
   "use strict";
   var doc = document, root = doc.documentElement;
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // režim editoru: stránka se načte staticky, vše viditelné, bez Lenis/GSAP/kurzoru
-  var EDIT = location.search.indexOf("edit=1") > -1 || window.name === "obsidioEdit";
-  if (EDIT) { reduce = true; root.classList.add("is-editing"); }
-  var desktop = matchMedia("(min-width: 1081px)").matches && matchMedia("(hover: hover)").matches && !EDIT;
+  var desktop = matchMedia("(min-width: 1081px)").matches && matchMedia("(hover: hover)").matches;
   var hasGSAP = !!(window.gsap), hasST = !!(window.ScrollTrigger), hasLenis = !!(window.Lenis);
   var gsap = window.gsap;
 

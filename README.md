@@ -63,18 +63,7 @@ Statický web. **Netlify / Vercel / Cloudflare Pages:** přetáhni složku `obsi
 ## 🖼️ Grafika
 Web běží i bez fotek (vlastní SVG logo, kinetický ribbon, typografie). Veškeré grafické zadání jako hotové prompty je v **`GRAFICKY-BRIEF.md`** (logo, favicon, OG, reference, vizitka, polep auta, social šablony).
 
-## 🎛️ Vizuální editor — `/admin/` (volitelné, no black box)
-Klient si může web upravovat sám bez kódu na **`obsidio.cz/admin/`** (stránka je `noindex`, neukáže se ve vyhledávání). Funguje plně v prohlížeči:
-- **Edituj texty** — klikni na text a piš.
-- **Vyměň obrázky** — klikni na obrázek, vlož URL nebo nahraj soubor.
-- **Přidávej bloky** (15 premade: nadpisy, karty, služby, ceník, balíčky, galerie, FAQ, CTA…) — přetáhni z palety nebo klikni.
-- **Sekce** — najetím se objeví ovládání: nahoru / dolů / duplikovat / pozadí (tmavé/světlé/electric) / smazat.
-- **Nová stránka** — vyber šablonu (prázdná / služba / landing), pojmenuj, volitelně přidej do menu (propíše se napříč webem).
-- **Menu** — přejmenuj/přesměruj/smaž položky navigace.
-- **Stáhnout HTML** — vyexportuje **čistý reálný `index.html`** (žádný black box). Nahraješ ho na hosting do správné složky, nebo commitneš do GitHubu → web se aktualizuje. Změny se průběžně ukládají jako koncept do prohlížeče.
-> Pro publikování „na jeden klik" stačí napojit ukládací endpoint (Netlify/Vercel function) — lze doplnit.
-
-## 🛠️ Přidání stránky (ručně)
+## 🛠️ Přidání stránky
 Zkopíruj `_template.html`, vyplň `{{TITLE}}/{{DESC}}/{{MAIN}}` podle `_build-guide.md` (kompletní reference komponent a sekčních bloků), ulož jako `nazev/index.html`.
 
 ---
