@@ -419,6 +419,7 @@ a.card:hover, .card.hov:hover { transform: translateY(-6px); }
 .panel--bone .guarantee .gi { color: var(--volt); }
 .guarantee strong { color: var(--volt-bright); }
 .panel--bone .guarantee strong { color: var(--volt); }
+.shy-av { width: clamp(52px,9vw,68px); height: clamp(52px,9vw,68px); border-radius: 50%; background: var(--bone-2); border: 1px solid var(--line-bone); display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: clamp(1.3rem,2.5vw,1.8rem); color: var(--on-bone-soft); }
 
 /* ============================================================
    PRICE
@@ -619,7 +620,64 @@ html.ready [data-reveal], .no-js [data-reveal] { opacity: 1; }
 .panel--bone .prose a{color:var(--volt);}
 .prose strong{color:var(--on-ink);}
 .panel--bone .prose strong{color:var(--on-bone);}
-.prose table{width:100%;border-collapse:collapse;margin:22px 0;font-size:0.95rem;}
-.prose th,.prose td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line-ink);vertical-align:top;}
+.prose table{width:100%;table-layout:fixed;border-collapse:collapse;margin:22px 0;font-size:0.95rem;}
+.prose th,.prose td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line-ink);vertical-align:top;overflow-wrap:anywhere;word-break:break-word;hyphens:auto;}
 .panel--bone .prose th,.panel--bone .prose td{border-color:var(--line-bone);}
 .prose th{font-family:var(--font-display);font-weight:700;}
+@media (max-width:560px){ .prose table{font-size:0.8rem;} .prose th,.prose td{padding:9px 7px;} }
+
+/* ============================================================
+   REVIZE — opravy z debatního kroužku (mobil prioritně)
+   ============================================================ */
+
+/* P0 — script akcent (.scr) přestane křížit obří nadpis: zasune se POD slovo.
+   Inline styly (top:48%, transform) přebíjíme atributovými selektory + !important. */
+.overlap-script { padding-bottom: clamp(1.3rem, 3.4vw, 2.8rem); }
+.overlap-script .scr[style*="left:50%"]{
+  top: auto !important; bottom: 0 !important;
+  transform: translate(-50%, 40%) rotate(-5deg) !important;
+}
+.overlap-script .scr[style*="left:8%"],
+.overlap-script .scr[style*="left:6%"]{
+  top: auto !important; bottom: 0 !important; left: 0 !important;
+  transform: translate(0, 40%) rotate(-5deg) !important;
+}
+/* mobil: script jako samostatný řádek pod nadpisem — bez překryvu, ořezu i přetečení.
+   Selektor [style] má stejnou specificitu jako atributová pravidla výše a je v pořadí
+   později → na mobilu vyhrává a vynuluje absolutní pozici i posun transformem. */
+@media (max-width: 640px){
+  .overlap-script{ display: block !important; text-align: center; padding-bottom: 0 !important; }
+  .overlap-script .giant-word{ text-align: center !important; }
+  .overlap-script .scr[style]{
+    position: static !important; display: block !important; text-align: center !important;
+    top: auto !important; bottom: auto !important; left: auto !important; right: auto !important;
+    transform: rotate(-4deg) !important;
+    font-size: clamp(1.8rem, 8.5vw, 3.2rem) !important;
+    white-space: normal !important; max-width: 100%;
+    margin-top: 0.1em; line-height: 0.92;
+  }
+  .giant-word{ line-height: 0.98; }
+}
+
+/* P0 — featured ceníkový plán v bone panelu: světlý text na voltovém pozadí */
+.panel--bone .plan.featured .pt{ color: rgba(255,255,255,0.82) !important; }
+.panel--bone .plan.featured .pp,
+.panel--bone .plan.featured .muted{ color: #fff !important; }
+.panel--bone .plan.featured .pp small{ color: rgba(255,255,255,0.8) !important; }
+.panel--bone .plan.featured .pf li{ color: #fff; }
+.panel--bone .plan.featured .pf li svg{ color: #fff !important; }
+
+/* P2 — velmi velká statistika se nezalomí (např. „+180 %") */
+.stat .n{ white-space: nowrap; }
+
+/* P2 — cena v ceníkovém řádku nelícuje s pravým okrajem karty */
+.pr-ours{ padding-right: clamp(2px, 1vw, 14px); }
+
+/* P2 — odrážky v balíčcích: ikona absolutně, text (vč. <strong>) plyne v jednom bloku.
+   Dřív bylo li flex → <strong> a text za ním = dvě flex položky → 2sloupcové lámání na mobilu. */
+.plan .pf li{ display: block; position: relative; padding-left: 30px; }
+.plan .pf li svg{ position: absolute; left: 0; top: 4px; margin-top: 0; }
+
+/* P2 — 4sloupcový grid (hodnoty) na telefonech do 1 sloupce: řeší přetečení na úzkých
+   displejích (≤390px) i stísněnost 2sloupcových karet. */
+@media (max-width:560px){ .cols-4{ grid-template-columns: 1fr; } }
