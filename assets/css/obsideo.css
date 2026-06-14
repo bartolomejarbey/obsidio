@@ -76,8 +76,8 @@ body::after {
 
 /* ---------- type ---------- */
 .display, h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.04em; line-height: 0.98; }
-h1, .h-hero { font-size: clamp(3rem, 11.5vw, 11rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.94; }
-h2, .h-xl { font-size: clamp(2.3rem, 7.2vw, 6.4rem); font-weight: 800; letter-spacing: -0.045em; line-height: 0.96; }
+h1, .h-hero { font-size: clamp(3rem, 11.5vw, 11rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.97; }
+h2, .h-xl { font-size: clamp(2.3rem, 7.2vw, 6.4rem); font-weight: 800; letter-spacing: -0.045em; line-height: 1.0; }
 .h-lg { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.9rem, 4.4vw, 3.6rem); letter-spacing: -0.035em; line-height: 1.0; }
 h3, .h-md { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 2.2rem); letter-spacing: -0.03em; line-height: 0.96; }
 .script { font-family: var(--font-script); font-weight: 700; line-height: 0.92; letter-spacing: 0; color: var(--volt); }
@@ -85,7 +85,7 @@ h3, .h-md { font-family: var(--font-display); font-weight: 700; font-size: clamp
 .panel--ink .script, .panel--ink .scr { color: var(--volt-bright); }
 .panel--bone .script, .panel--bone .scr { color: var(--volt); }
 .panel--volt .script { color: #fff; }
-.panel--volt .scr { color: var(--ink); }  /* overlap-script přes bílé giant slovo → tmavý, ne bílý */
+.panel--volt .scr { color: var(--bone); }  /* overlap-script na voltovém panelu → světlý (kontrast na modré) */
 p { max-width: 58ch; }
 .lead { font-size: clamp(1.15rem, 1rem + 0.9vw, 1.7rem); line-height: 1.4; letter-spacing: -0.015em; max-width: 26ch; }
 .body-lg { font-size: clamp(1.05rem,1rem+0.4vw,1.3rem); line-height: 1.5; }
@@ -132,7 +132,7 @@ strong { font-weight: 600; }
 .nav-pill {
   display: flex; align-items: center; gap: 8px; width: 100%; max-width: var(--nav-w);
   padding: 9px 9px 9px 18px; border-radius: var(--r-pill);
-  background: rgba(20,21,28,0.6); border: 1px solid var(--line-ink);
+  background: rgba(18,19,26,0.78); border: 1px solid var(--line-ink);
   backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%);
   box-shadow: 0 20px 50px -28px rgba(0,0,0,0.8); transition: background .4s var(--ease);
 }
@@ -241,7 +241,7 @@ body.menu-open { overflow: hidden; }
 .hero h1 .em { color: var(--volt-bright); }
 .hero-glow { position: absolute; width: 60vw; height: 60vw; border-radius: 50%; background: radial-gradient(circle, rgba(71,54,255,0.5) 0%, rgba(71,54,255,0) 64%); filter: blur(40px); top: 18%; left: 50%; transform: translateX(-50%); z-index: 0; pointer-events: none; }
 .hero .container { position: relative; z-index: 2; }
-.hero h1 { color: var(--cream); text-align: center; mix-blend-mode: normal; }
+.hero h1 { color: var(--cream); text-align: center; mix-blend-mode: normal; margin-top: 0.24em; }
 /* maska řádku: clip-path místo overflow:hidden — neořezává diakritiku nahoře (Á Í Ů Ě) */
 .hero h1 .ln { display: block; clip-path: inset(-0.45em 0px 0.02em 0px); padding-top: 0.04em; }
 .hero h1 .ln > span { display: block; will-change: transform; }
@@ -259,7 +259,7 @@ body.menu-open { overflow: hidden; }
 .subhero { padding-top: clamp(132px, 17vh, 210px); padding-bottom: clamp(40px, 6vw, 84px); position: relative; overflow: hidden; }
 .subhero h1 { font-size: clamp(2.6rem, 8.5vw, 7rem); }
 .subhero .lead { margin-top: 22px; }
-.subhero .eyebrow { margin-bottom: 22px; }
+.subhero .eyebrow { margin-bottom: 30px; }
 .subhero-glow { position: absolute; width: 50vw; height: 50vw; border-radius: 50%; background: radial-gradient(circle, rgba(71,54,255,0.32) 0%, rgba(71,54,255,0) 66%); filter: blur(40px); top: -10%; right: -8%; z-index: 0; pointer-events: none; }
 .subhero > .container { position: relative; z-index: 1; }
 /* aby první sekce (pokud není subhero) neskončila pod nav */
@@ -287,7 +287,7 @@ main > .section:first-child:not(.subhero):not(.hero):not(.hscroll) { padding-top
 .statement .scr { font-family: var(--font-script); font-weight: 700; color: var(--volt); font-size: clamp(2.6rem,10vw,9rem); line-height: 0.78; display: inline-block; }
 .overlap-script { position: relative; display: inline-block; padding-bottom: 0; margin-bottom: clamp(2.5rem, 6vw, 5rem); }
 .overlap-script .scr { position: absolute; left: 50%; top: 64%; transform: translate(-50%,-30%) rotate(-6deg); white-space: nowrap; pointer-events: none; }
-.giant-word { font-family: var(--font-display); font-weight: 800; font-size: clamp(3.2rem,15vw,15rem); letter-spacing: -0.055em; line-height: 0.9; text-align: center; }
+.giant-word { font-family: var(--font-display); font-weight: 800; font-size: clamp(3.2rem,15vw,15rem); letter-spacing: -0.055em; line-height: 0.97; text-align: center; }
 
 /* ============================================================
    HORIZONTAL PINNED SECTION (works)
@@ -602,7 +602,7 @@ html.ready [data-reveal], .no-js [data-reveal] { opacity: 1; }
 .flex{display:flex;}.items-center{align-items:center;}.items-end{align-items:flex-end;}.justify-between{justify-content:space-between;}
 .gap-3{gap:12px;}.gap-4{gap:16px;}.gap-6{gap:24px;}.flex-wrap{flex-wrap:wrap;}
 .maxw-prose{max-width:60ch;}.maxw-narrow{max-width:44ch;}.full{width:100%;}
-.section-head{max-width:30ch;} .section-head .h-xl, .section-head h2{margin-top:16px;}
+.section-head{max-width:30ch;} .section-head .h-xl, .section-head h2{margin-top:26px;}
 .eybrow-row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;}
 
 /* prose */
@@ -632,15 +632,18 @@ html.ready [data-reveal], .no-js [data-reveal] { opacity: 1; }
 
 /* P0 — script akcent (.scr) přestane křížit obří nadpis: zasune se POD slovo.
    Inline styly (top:48%, transform) přebíjíme atributovými selektory + !important. */
-.overlap-script { padding-bottom: clamp(1.3rem, 3.4vw, 2.8rem); }
+.overlap-script { padding-bottom: clamp(1.7rem, 3.8vw, 3.4rem); }
+/* desktop: script zmenšit a posadit níž, aby jen lehce podtrhával, nekřížil glyfy ani nepřetékal */
 .overlap-script .scr[style*="left:50%"]{
   top: auto !important; bottom: 0 !important;
-  transform: translate(-50%, 40%) rotate(-5deg) !important;
+  transform: translate(-50%, 56%) rotate(-5deg) !important;
+  font-size: clamp(1.7rem, 4.2vw, 4rem) !important; max-width: 90vw;
 }
 .overlap-script .scr[style*="left:8%"],
 .overlap-script .scr[style*="left:6%"]{
-  top: auto !important; bottom: 0 !important; left: 0 !important;
-  transform: translate(0, 40%) rotate(-5deg) !important;
+  top: auto !important; bottom: 0 !important; left: 1% !important;
+  transform: translate(0, 56%) rotate(-5deg) !important;
+  font-size: clamp(1.7rem, 4vw, 3.6rem) !important; max-width: 92vw;
 }
 /* mobil: script jako samostatný řádek pod nadpisem — bez překryvu, ořezu i přetečení.
    Selektor [style] má stejnou specificitu jako atributová pravidla výše a je v pořadí
@@ -681,3 +684,25 @@ html.ready [data-reveal], .no-js [data-reveal] { opacity: 1; }
 /* P2 — 4sloupcový grid (hodnoty) na telefonech do 1 sloupce: řeší přetečení na úzkých
    displejích (≤390px) i stísněnost 2sloupcových karet. */
 @media (max-width:560px){ .cols-4{ grid-template-columns: 1fr; } }
+
+/* ===== REVIZE 2 — reálný audit (animace běží): další detaily ===== */
+
+/* ceny v ceníku se nelámou uprostřed čísla (8–20 000 Kč apod.) */
+.pr-ours, .pr-market { white-space: nowrap; }
+
+/* zvýraznění (strong) na voltovém panelu = bílé, ne vybledlá lavandule (kontrast) */
+.panel--volt strong { color: #fff; }
+
+/* mobil: obří nadpisy s českou diakritikou potřebují víc prokladu, ať akcenty
+   druhého řádku nenarážejí na řádek nad nimi (artsb CTA, artroas, artweb H1) */
+@media (max-width:640px){
+  h1, .h-hero, h2, .h-xl { line-height: 1.06; }
+  .giant-word { line-height: 1.0; }
+}
+
+/* O nás — vedoucí karta (Tomáš) na mobilu: stack místo 2 sloupců, ať text neleží přes fotku */
+@media (max-width:560px){
+  .lead-card { grid-template-columns: 1fr !important; }
+  .lead-card > div:first-child { aspect-ratio: 16/10 !important; }
+  .lead-card img { height: auto !important; width: 100% !important; max-height: 360px; object-fit: cover !important; }
+}
